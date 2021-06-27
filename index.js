@@ -22,6 +22,7 @@ app.post("/", async(req, res) => {
     const end_date = req.body.end_date;
     const start_time = req.body.start_time;
     const end_time = req.body.end_time;
+    const online_link = req.body.online_link;
     const description = req.body.description;
     
 
@@ -33,6 +34,7 @@ app.post("/", async(req, res) => {
         end_date: end_date,
         start_time: start_time,
         end_time: end_time,
+        online_link: online_link,
         description: description,
     });
 
