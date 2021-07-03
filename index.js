@@ -57,6 +57,12 @@ app.get("/events", async(req, res) => {
     })
 })
 
+app.delete("/delete/:id", async(req, res) => {
+    const id = req.params.id;
+    await EventModel.findByIdAndRemove(id).exec();
+    res.send(id);
+})
+
 app.listen(process.env.PORT || 3001, () => {
     console.log("The Server running on port 3001..");
 });
