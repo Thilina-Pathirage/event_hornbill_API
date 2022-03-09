@@ -5,6 +5,7 @@ const cors = require('cors');
 require ("dotenv").config;
 
 const EventModel = require("./models/Event");
+const UserModel = require("./models/Users");
 
 app.use(express.json());
 app.use(cors());
@@ -63,6 +64,40 @@ app.delete("/delete/:id", async(req, res) => {
     res.send(id);
 })
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log("The Server running on port 3001..");
+
+// User Login
+
+app.post("/signup", async(req, res) => {
+
+    const name = req.body.name;
+    const email = req.body.email; 
+    const pwd = req.body.pwd;
+    
+
+    const user = new UserModel({
+        name: name,
+        email: email, 
+        pwd: pwd,
+    });
+
+    try{
+        await user.save();
+        res.send("User registered!");
+    }catch(err){
+        console.log(err);
+    }
+})
+
+app.get("/getusers", async(req, res) => {
+
+    UserModel.find({}, (err, result) => {
+        if(err){
+            res.send("error");
+        }
+        res.send(result);
+    })
+})
+
+app.listen(process.env.PORT || 5000, () => {
+    console.log("The Server running on port 5000..");
 });
